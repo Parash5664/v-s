@@ -66,6 +66,85 @@
             width: auto;
         }
 
+        /* Hamburger Menu */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1010;
+        }
+
+        .hamburger-menu span {
+            width: 100%;
+            height: 3px;
+            background: var(--dark-color);
+            border-radius: 10px;
+            transition: var(--transition);
+            position: relative;
+            transform-origin: center;
+        }
+
+        /* Hamburger Menu Active State */
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background: var(--light-color);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1000;
+            padding: 100px 20px 20px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            transform: translateX(5px);
+        }
+
         nav ul {
             display: flex;
             list-style: none;
@@ -117,6 +196,16 @@
                 font-size: 0.9rem;
                 padding: 6px 12px;
             }
+            
+            /* Hamburger Menu for Mobile */
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            /* Hide regular navigation on mobile */
+            nav {
+                display: none;
+            }
         }
 
         @media (max-width: 576px) {
@@ -156,6 +245,14 @@
             nav a {
                 font-size: 0.75rem;
                 padding: 4px 8px;
+            }
+            
+            .mobile-menu {
+                width: 80%;
+            }
+            
+            .mobile-menu a {
+                font-size: 1.1rem;
             }
         }
 
@@ -752,6 +849,12 @@
             <div class="logo-container">
                 <img src="ecommerce_images/logo1.png" alt="V & S Traders and Suppliers - Commercial Kitchen & Bakery Equipment Supplier" class="logo">
             </div>
+            <!-- Hamburger Menu Button (Mobile Only) -->
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -760,6 +863,15 @@
                     <li><a href="#contact">Contact Us</a></li>
                 </ul>
             </nav>
+            <!-- Mobile Menu (Hidden by Default) -->
+            <div class="mobile-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#clients">Our Clients</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
     </header>
 
@@ -1004,6 +1116,43 @@
                     });
                 }
             });
+        });
+        
+        // Hamburger menu functionality
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Add animation to hamburger icon
+            hamburgerMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileMenu.classList.remove('active');
+                hamburgerMenu.classList.remove('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburgerMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                hamburgerMenu.classList.remove('active');
+            }
         });
     </script>
 </body>
