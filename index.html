@@ -156,6 +156,68 @@
             line-height: 1.7;
         }
 
+        /* Full-width Carousel Styles */
+        .carousel-full-width {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            animation: slideRightToLeft 30s infinite linear;
+        }
+
+        .carousel-slide {
+            width: 20%;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            object-position: center;
+        }
+
+        @keyframes slideRightToLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Mobile Responsive Carousel */
+        @media (max-width: 768px) {
+            .carousel-full-width {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-full-width {
+                height: 300px;
+            }
+            
+            .carousel-wrapper {
+                animation: slideRightToLeft 20s infinite linear;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-full-width {
+                height: 250px;
+            }
+        }
+
         /* Products Section */
         .search-container {
             margin: 40px 0;
@@ -575,6 +637,30 @@
 
     <!-- Home Section -->
     <section id="home">
+        <!-- Full-width Carousel -->
+        <div class="carousel-full-width">
+            <div class="carousel-wrapper">
+                <!-- First set of slides -->
+                <div class="carousel-slide">
+                    <img src="ecommerce_images/display counter.jpg" alt="Commercial Display Counter">
+                </div>
+                <div class="carousel-slide">
+                    <img src="ecommerce_images/display image 2.jpg" alt="Professional Display Counter">
+                </div>
+                <div class="carousel-slide">
+                    <img src="ecommerce_images/working table.jpg" alt="Modern Display Setup">
+                </div>
+                <div class="carousel-slide">
+                    <img src="ecommerce_images/display pic.jpg" alt="Kitchen Display Equipment">
+                </div>
+                
+                <!-- Duplicate first slide for seamless looping -->
+                <div class="carousel-slide">
+                    <img src="ecommerce_images/display counter.jpg" alt="Commercial Display Counter">
+                </div>
+            </div>
+        </div>
+        
         <div class="container">
             <div class="home-content">
                 <h1>Premium Commercial Kitchen & Bakery Equipment</h1>
